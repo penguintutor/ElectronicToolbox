@@ -24,7 +24,8 @@ import javax.swing.*;
  */
 public class EtbTabbedScreen extends JTabbedPane {
     
-    JPanel resistorPanel;
+	private static final long serialVersionUID = 4811007989710025723L;
+	JPanel resistorPanel;
     
     EtbTabbedScreen() {
         this.addTab("Resistor Calculator", resistorPanel = new EtbResistor());

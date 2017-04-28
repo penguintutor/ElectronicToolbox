@@ -16,7 +16,6 @@
  */
 package electronictoolbox;
 
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -26,7 +25,8 @@ import javax.swing.*;
  */
 public class EtbMenuBar extends JMenuBar {
     
-    JMenu jmFile;
+	private static final long serialVersionUID = -362672125284752286L;
+	JMenu jmFile;
     JMenuItem jmiExit;
     JMenu jmHelp;
     JMenuItem jmiAbout;

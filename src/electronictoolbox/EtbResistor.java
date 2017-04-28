@@ -27,7 +27,9 @@ import javax.swing.*;
  */
 public class EtbResistor extends JPanel {
     
-    // Define those that need to be updated as class variables
+	private static final long serialVersionUID = -761550344508481533L;
+
+	// Define those that need to be updated as class variables
     JTextField jtxtVolts;
     JTextField jtxtAmps;
     JLabel jlabResistorVal;
@@ -35,7 +37,7 @@ public class EtbResistor extends JPanel {
     JLabel jlabSelectResisValue;
     
     // These are values to read only (ie checkboxes)
-    JComboBox jcombPref;
+    JComboBox<String> jcombPref;
     JCheckBox jckbxE3;
     JCheckBox jckbxE6;
     JCheckBox jckbxE12;
@@ -170,7 +172,7 @@ public class EtbResistor extends JPanel {
         jpanPref.add(jlabSeries);
         
 
-        jcombPref = new JComboBox();
+        jcombPref = new JComboBox<String>();
         jcombPref.addItem("Nearest");
         jcombPref.addItem("Lower value");
         jcombPref.addItem("Higher value");

@@ -28,7 +28,8 @@ import javax.swing.*;
 //public class EtbAbout extends JDialog implements ActionListener {
 public class EtbAbout extends JDialog {
     
-    JButton jbtnOK;
+	private static final long serialVersionUID = 1822819975035997666L;
+	JButton jbtnOK;
     ImageIcon imgLogo;
     JLabel jlabLogo;
     JLabel jlabAboutText;

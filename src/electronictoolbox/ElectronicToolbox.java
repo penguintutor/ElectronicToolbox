@@ -75,8 +75,7 @@ public class ElectronicToolbox {
         // Create frame on event dispatching thread
         // Uses lambda function ->
         SwingUtilities.invokeLater(() -> {
-            // Assign to etb (though not used as variable)
-            ElectronicToolbox etb = new ElectronicToolbox();
+            new ElectronicToolbox();
         });
         
         
