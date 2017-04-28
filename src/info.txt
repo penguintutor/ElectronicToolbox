@@ -1,0 +1,90 @@
+Electronic Toolbox
+==================
+
+A collection of electronic tools / convertions / information
+
+Functionality - now and planned
+
+Resistor Information
+--------------------
+Includes colour code identifier / conversion
+Enter colours to get resistor
+
+Also add SMD resistor code
+
+Resistor Calculator 
+-------------------
+From voltage and current give required resistance and show resistor from standard values
+(also show power consumed)
+
+Based on value of resistor and known voltage (more common than constant current) give actual anticipated current
+Allow actual resistor value or choose from standard values
+
+Show suitable resistor from E3 (10% silver), E6 (10% silver), E12 (10% silver), E24 (5% gold), E48 (2% red) and E96 (1% brown)
+- If multiple selected then choose % from least accurate
+
+E3 series:
+10, 22, 47
+
+E6 series
+10, 15, 22, 33, 47, 68
+
+E12 series: (10% tolerance)
+10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82
+
+E24 series: (5% tolerance)
+10, 11, 12, 13, 15, 16, 18, 20, 22, 24, 27, 30, 33, 36, 39, 43, 47, 51, 56, 62, 68, 75, 82, 91
+
+E48 series: (2% tolerance)
+100, 105, 110, 115, 121, 127, 133, 140, 147, 154, 162, 169, 178, 187, 196, 205, 215, 226, 237, 249, 261, 274, 287, 301, 316, 332, 348, 365, 383, 402, 422, 442, 464, 487, 511, 536, 562, 590, 619, 649, 681, 715, 750, 787, 825, 866, 909, 953
+
+E96 series: (1% tolerance)
+100, 102, 105, 107, 110, 113, 115, 118, 121, 124, 127, 130, 133, 137, 140, 143, 147, 150, 154, 158, 162, 165, 169, 174, 178, 182, 187, 191, 196, 200, 205, 210, 215, 221, 226, 232, 237, 243, 249, 255, 261, 267, 274, 280, 287, 294, 301, 309, 316, 324, 332, 340, 348, 357, 365, 374, 383, 392, 402, 412, 422, 432, 442, 453, 464, 475, 487, 491, 511, 523, 536, 549, 562, 576, 590, 604, 619, 634, 649, 665, 681, 698, 715, 732, 750, 768, 787, 806, 825, 845, 866, 887, 909, 931, 959, 976 
+
+Ring color 	Significant figures 	Multiplier 	Tolerance 	Temperature coefficient
+Name 	Code 	RAL 	Percent 	Letter 	ppm/K 	Letter
+None 	– 	– 	– 	– 	±20% 	M 	–
+Pink 	PK 	3015 	– 	×10−3[5] 	×0.001 	– 	–
+Silver 	SR 	– 	– 	×10−2 	×0.01 	±10% 	K 	–
+Gold 	GD 	– 	– 	×10−1 	×0.1 	±5% 	J 	–
+Black 	BK 	9005 	0 	×100 	×1 	– 	250 	U
+Brown 	BN 	8003 	1 	×101 	×10 	±1% 	F 	100 	S
+Red 	RD 	3000 	2 	×102 	×100 	±2% 	G 	50 	R
+Orange 	OG 	2003 	3 	×103 	×1000 	– 	15 	P
+Yellow 	YE 	1021 	4 	×104 	×10000 	(±5%[nb 1][6]) 	– 	25 	Q
+Green 	GN 	6018 	5 	×105 	×100000 	±0.5% 	D 	20 	Z[nb 2]
+Blue 	BU 	5015 	6 	×106 	×1000000 	±0.25% 	C 	10 	Z[nb 2]
+Violet 	VT 	4005 	7 	×107 	×10000000 	±0.1% 	B 	5 	M
+Gray 	GY 	7000 	8 	×108 	×100000000 	±0.05% (±10%[nb 1][6]) 	A 	1 	K
+White 	WH 	1013 	9 	×109 	×1000000000 	– 	–
+
+
+Standard circuit calculations
+-----------------------------
+LED resistor - from std voltages and LED colours choose appropriate resistor
+Voltage divider - Enter resistor values to get vout
+
+555 Timer
+---------
+Using different modes create fixed frequency astable (oscillator)
+or 
+fixed duration monostable
+
+Cable voltage drop
+------------------
+Calcs voltage drop based on length and size of cable
+Includes guide to wire sizes
+
+Connector pin-outs
+------------------
+Arduino 
+Raspberry Pi
+USB 
+etc.
+
+IC lookup
+---------
+Lookup appropriate IC using code, name or function
+Partial database lookup - then Internet search
+
+
