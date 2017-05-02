@@ -58,6 +58,7 @@ public class EtbResistor extends JPanel {
     final static int COL_POS_X1 = 40;					// First Label
     final static int COL_POS_X2 = 130;					// First txt field
     final static int COL_POS_X3 = 200;					// post field Label
+    final static int COL_POS_X3A = 240;					// (intermediate - eg. last omega)
     final static int COL_POS_X4 = 400;					// Second Label
     final static int COL_POS_X5 = 500;					// Second Value 
     final static int COL_POS_X6 = 540;					// Second Label post (eg. omega - assuming X5 non-edit)
@@ -70,13 +71,14 @@ public class EtbResistor extends JPanel {
     /* ROW = y coords */
     final static int ROW_POS_Y0 = 20;					// Title
     final static int ROW_POS_Y1 = 60;					// Image
-    final static int ROW_POS_Y2 = 200;					// Text
-    final static int ROW_POS_Y3 = 250;					// First entry fields eg. voltage	
-    final static int ROW_POS_Y4 = 290;					// Second entry fields eg. current	
-    final static int ROW_POS_Y5 = 330;					// Refresh button	
-    final static int ROW_POS_Y6 = 400;					// Second text
-    final static int ROW_POS_Y7 = 440;					// Resistor pref
-    final static int ROW_POS_Y8 = 480;					// Series checkboxes 1
+    final static int ROW_POS_Y2 = 160;					// Text
+    final static int ROW_POS_Y3 = 210;					// First entry fields eg. voltage	
+    final static int ROW_POS_Y4 = 250;					// Second entry fields eg. current	
+    final static int ROW_POS_Y5 = 290;					// Refresh button	
+    final static int ROW_POS_Y6 = 360;					// Second text
+    final static int ROW_POS_Y7 = 400;					// Resistor pref
+    final static int ROW_POS_Y8 = 440;					// Series checkboxes
+    final static int ROW_POS_Y9 = 480;					// Nearest resistor
     
     
     // Some common fields have fixed sizes
@@ -272,14 +274,20 @@ public class EtbResistor extends JPanel {
         jckbxE96.addActionListener(aclstPrefResistor);
         
         
-        JPanel jpanSelectedResistor = new JPanel();
-        this.add(jpanSelectedResistor);
-        
         JLabel jlabSelectResisLabel = new JLabel("Nearest resistor");
-        jpanSelectedResistor.add(jlabSelectResisLabel);
+        jlabSelectResisLabel.setFont(fntBody);
+        jlabSelectResisLabel.setBounds(COL_POS_X1, ROW_POS_Y9, SIZE_STDLAB_X2, SIZE_STD_Y);
+        this.add(jlabSelectResisLabel);
+        
         jlabSelectResisValue = new JLabel("0");
-        jpanSelectedResistor.add(jlabSelectResisValue);
-        jpanSelectedResistor.add(jlabOhm);
+        jlabSelectResisValue.setFont(fntBody);
+        jlabSelectResisValue.setBounds(COL_POS_X3, ROW_POS_Y9, SIZE_STDLAB_X, SIZE_STD_Y);
+        this.add(jlabSelectResisValue);
+
+        JLabel jlabOhm2 = new JLabel ("\u2126");
+        jlabOhm2.setFont(fntBody);
+        jlabOhm2.setBounds(COL_POS_X3A, ROW_POS_Y9, SIZE_SMLLAB_X, SIZE_STD_Y);
+        this.add(jlabOhm2);
     }
     
     

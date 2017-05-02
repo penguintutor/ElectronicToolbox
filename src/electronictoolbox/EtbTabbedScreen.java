@@ -28,7 +28,10 @@ public class EtbTabbedScreen extends JTabbedPane {
 	JPanel resistorPanel;
     
     EtbTabbedScreen() {
-        this.addTab("Resistor Calculator", resistorPanel = new EtbResistor());
+    	
+    	resistorPanel = new EtbResistor();
+
+        this.addTab("Resistor Calculator", resistorPanel);
         this.addTab("Test2", new JLabel("Test2"));
     }
     
