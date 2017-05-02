@@ -19,6 +19,7 @@ package electronictoolbox;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
+
 import javax.swing.*;
 
 /**
@@ -49,213 +50,217 @@ public class EtbResistor extends JPanel {
     // but is saved so that it can be read by preferred resistor methods
     double resistance;
     
+    /* These static variables are used to define the GUI positions based on fix layout */
+    /* Positions left to right / top to bottom*/
+    /* COL = x coords */
+    final static int COL_POS_XCENTRE0 = 300;			// Title
+    final static int COL_POS_X0 = 20;					// Text / instructions
+    final static int COL_POS_X1 = 40;					// First Label
+    final static int COL_POS_X2 = 130;					// First txt field
+    final static int COL_POS_X3 = 200;					// post field Label
+    final static int COL_POS_X4 = 400;					// Second Label
+    final static int COL_POS_X5 = 500;					// Second Value 
+    final static int COL_POS_X6 = 540;					// Second Label post (eg. omega - assuming X5 non-edit)
+    final static int COL_POS_X7 = 460;					// 2nd checkbox (note these are shifted back compared with X5 and X6)
+    final static int COL_POS_X8 = 520;					// 3rd checkbox
+    final static int COL_POS_X9 = 580;					// 4th checkbox
+    final static int COL_POS_X10 = 640;					// 5th checkbox
+    final static int COL_POS_X11 = 700;					// 6th checkbox
+    
+    /* ROW = y coords */
+    final static int ROW_POS_Y0 = 20;					// Title
+    final static int ROW_POS_Y1 = 60;					// Image
+    final static int ROW_POS_Y2 = 200;					// Text
+    final static int ROW_POS_Y3 = 250;					// First entry fields eg. voltage	
+    final static int ROW_POS_Y4 = 290;					// Second entry fields eg. current	
+    final static int ROW_POS_Y5 = 330;					// Refresh button	
+    final static int ROW_POS_Y6 = 400;					// Second text
+    final static int ROW_POS_Y7 = 440;					// Resistor pref
+    final static int ROW_POS_Y8 = 480;					// Series checkboxes 1
+    
+    
+    // Some common fields have fixed sizes
+    final static int SIZE_CBOX_X = 50;					// Checkbox
+    final static int SIZE_STDLAB_X = 80;				// Eg. Voltage label
+    final static int SIZE_STDLAB_X1 = 90;				// Slightly larger eg. resistance
+    final static int SIZE_STDLAB_X2 = 130;				// Larger still eg. Resistor series
+    final static int SIZE_SMLENTRY_X = 60;				// Eg. volts
+    final static int SIZE_STDENTRY_X = 130;				// Eg. pull down - preference
+    final static int SIZE_SMLLAB_X = 30;				// Eg. short value non edit eg. Resistance
+    final static int SIZE_BTN_X = 120;
+    final static int SIZE_STD_Y = 30;					// Most fields incl labels and text fields
+    final static int SIZE_BTN_Y = 45;					// standard button size
+
+    
     EtbResistor() {
     	
+    	this.setLayout(null);
+        //this.setBackground(Color.white);
     	
+        JLabel jlabResTitle = new JLabel("Resistor Calculator Tool");
+        jlabResTitle.setFont(jlabResTitle.getFont().deriveFont(18.0f));
+        jlabResTitle.setBounds(COL_POS_XCENTRE0,ROW_POS_Y0,300,35);
+        this.add(jlabResTitle);
+        
+        /* Insert image of resistor */
+        
 
-        this.setLayout(new GridBagLayout());
-        
-        GridBagConstraints c = new GridBagConstraints();
-        
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 0;
-        c.gridwidth = 8;
-        c.weightx = 1.0;
-        this.add(new JLabel("Resistor Calculator Tool", SwingConstants.CENTER), c);
-        
-        c.gridx = 0;
-        c.gridy = 1;
-        c.gridwidth = 8;
-        c.weightx = 1.0;
         JLabel jlabInstr = new JLabel("Add details of voltage and current for details of nearest resistor size.");
-        this.add(jlabInstr, c);
+        // Make this into a font we can apply to other labels
+        Font fntBody = jlabInstr.getFont().deriveFont(13.0f);
+        jlabInstr.setFont(fntBody);
+        jlabInstr.setBounds(COL_POS_X0,ROW_POS_Y2,600,25);
+        this.add(jlabInstr);
 
+        
         /* Voltage and Current input */
-        
-        c.gridx = 0;
-        c.gridy = 2;
-        c.gridwidth = 3;
-        c.weightx = 1.00;
-        JPanel jpanVoltage = new JPanel();
-        this.add(jpanVoltage, c);
-        
         JLabel jlabVoltage = new JLabel("Voltage : ");
-        jpanVoltage.add(jlabVoltage);
+        jlabVoltage.setFont(fntBody);
+        jlabVoltage.setBounds(COL_POS_X1, ROW_POS_Y3, SIZE_STDLAB_X, SIZE_STD_Y);
+        this.add(jlabVoltage);
         
         
         jtxtVolts = new JTextField(10);
-        jpanVoltage.add(jtxtVolts);
+        jtxtVolts.setFont(fntBody);
+        jtxtVolts.setBounds(COL_POS_X2, ROW_POS_Y3, SIZE_SMLENTRY_X, SIZE_STD_Y);
+        this.add(jtxtVolts);
         
         JLabel jlabVolts = new JLabel(" Volts");
-        jpanVoltage.add(jlabVolts);
+        jlabVolts.setFont(fntBody);
+        jlabVolts.setBounds(COL_POS_X3, ROW_POS_Y3, SIZE_STDLAB_X, SIZE_STD_Y);
+        this.add(jlabVolts);
         
-        
-        c.gridx = 0;
-        c.gridy = 3;
-        c.gridwidth = 3;
-        c.weightx = 1.00;
-        JPanel jpanCurrent = new JPanel();
-        this.add(jpanCurrent, c);
         
         JLabel jlabCurrent = new JLabel("Current : ");
-        jpanCurrent.add(jlabCurrent);
+        jlabCurrent.setFont(fntBody);
+        jlabCurrent.setBounds(COL_POS_X1, ROW_POS_Y4, SIZE_STDLAB_X, SIZE_STD_Y);
+        this.add(jlabCurrent);
         
         jtxtAmps = new JTextField(10);
-        jpanCurrent.add(jtxtAmps);
+        jtxtAmps.setFont(fntBody);
+        jtxtAmps.setBounds(COL_POS_X2, ROW_POS_Y4, SIZE_SMLENTRY_X, SIZE_STD_Y);
+        this.add(jtxtAmps);
         
         JLabel jlabAmps = new JLabel(" Amps");
-        jpanCurrent.add(jlabAmps);
+        jlabAmps.setFont(fntBody);
+        jlabAmps.setBounds(COL_POS_X3, ROW_POS_Y4, SIZE_STDLAB_X, SIZE_STD_Y);
+        this.add(jlabAmps);
 
-        /* Refresh and update exact values */
-        
-        c.gridx = 3;
-        c.gridy = 2;
-        c.gridwidth = 2;
-        c.weightx = 1.00;
-        JPanel jpanResistance = new JPanel();
-        this.add(jpanResistance, c);
-        
+        /* Resistance and power - right hand side */
+        /* Set to 0 initially refresh and update exact values later */
+       
         JLabel jlabResistance = new JLabel ("Resistance : ");
-        jpanResistance.add(jlabResistance);
+        jlabResistance.setFont(fntBody);
+        jlabResistance.setBounds(COL_POS_X4, ROW_POS_Y3, SIZE_STDLAB_X1, SIZE_STD_Y);
+        this.add(jlabResistance);
         
-        jlabResistorVal = new JLabel ("0");
-        jpanResistance.add(jlabResistorVal);
+        jlabResistorVal = new JLabel ("9999", SwingConstants.RIGHT);
+        jlabResistorVal.setFont(fntBody);
+        jlabResistorVal.setBounds(COL_POS_X5, ROW_POS_Y3, SIZE_SMLLAB_X, SIZE_STD_Y);
+        this.add(jlabResistorVal);
         
         JLabel jlabOhm = new JLabel ("\u2126");
-        jpanResistance.add(jlabOhm);
+        jlabOhm.setFont(fntBody);
+        jlabOhm.setBounds(COL_POS_X6, ROW_POS_Y3, SIZE_SMLLAB_X, SIZE_STD_Y);
+        this.add(jlabOhm);
         
         
-        c.gridx = 3;
-        c.gridy = 3;
-        c.gridwidth = 2;
-        c.weightx = 1.00;
-        JPanel jpanPower = new JPanel();
-        this.add(jpanPower, c);
-
         JLabel jlabPower = new JLabel ("Power : ");
-        jpanPower.add(jlabPower);
+        jlabPower.setFont(fntBody);
+        jlabPower.setBounds(COL_POS_X4, ROW_POS_Y4, SIZE_STDLAB_X1, SIZE_STD_Y);
+        this.add(jlabPower);
         
-        jlabPowerVal = new JLabel ("0");
-        jpanPower.add(jlabPowerVal);
+        jlabPowerVal = new JLabel ("0", SwingConstants.RIGHT);
+        jlabPowerVal.setFont(fntBody);
+        jlabPowerVal.setBounds(COL_POS_X5, ROW_POS_Y4, SIZE_SMLLAB_X, SIZE_STD_Y);
+        this.add(jlabPowerVal);
         
         JLabel jlabWatts = new JLabel ("W");
-        jpanPower.add(jlabWatts);
+        jlabWatts.setFont(fntBody);
+        jlabWatts.setBounds(COL_POS_X6, ROW_POS_Y4, SIZE_SMLLAB_X, SIZE_STD_Y);
+        this.add(jlabWatts);
         
-        c.gridx = 3;
-        c.gridy = 4;
-        c.gridwidth = 2;
-        c.weightx = 1.00;
-        JPanel jpanRefresh = new JPanel();
-        this.add(jpanRefresh, c);
         
+        /* Refresh button */
         JButton jbtnRefresh = new JButton("Refresh");
         jbtnRefresh.addActionListener((ActionEvent ae) -> {
             updateResistance();
         });
+        jbtnRefresh.setFont(fntBody);
+        jbtnRefresh.setBounds(COL_POS_X4, ROW_POS_Y5, SIZE_BTN_X, SIZE_BTN_Y);
+        this.add(jbtnRefresh);
+        
 
-        jpanRefresh.add(jbtnRefresh);
-        
-        c.gridx = 0;
-        c.gridy = 5;
-        c.weightx = 1.0;
-        c.gridwidth = 6;
         JLabel jlabSeriesInstr = new JLabel("Select resistor series and whether minimum, maximum or nearest");
-        this.add(jlabSeriesInstr, c);
+        jlabInstr.setFont(fntBody);
+        jlabInstr.setBounds(COL_POS_X0,ROW_POS_Y6,600,25);
+        this.add(jlabSeriesInstr);
         
-        c.gridx = 0;
-        c.gridy = 6;
-        c.weightx = 0.5;
-        c.gridwidth = 1;
+
         JPanel jpanPref = new JPanel();
-        this.add(jpanPref, c);
+        this.add(jpanPref);
         
         JLabel jlabSeries = new JLabel("Preference : ");
-        jpanPref.add(jlabSeries);
+        jlabSeries.setFont(fntBody);
+        jlabSeries.setBounds(COL_POS_X1, ROW_POS_Y7, SIZE_STDLAB_X1, SIZE_STD_Y);
+        this.add(jlabSeries);
         
 
         jcombPref = new JComboBox<String>();
+        jcombPref.setFont(fntBody);
+        jcombPref.setBounds(COL_POS_X2, ROW_POS_Y7, SIZE_STDENTRY_X, SIZE_STD_Y);
         jcombPref.addItem("Nearest");
         jcombPref.addItem("Lower value");
         jcombPref.addItem("Higher value");
-        //this.add(jcombPref, c);
-        jpanPref.add(jcombPref);
+        this.add(jcombPref);
         
-        c.gridx = 2;
-        c.gridy = 6;
-        c.weightx = 0.5;
-        c.gridwidth = 1;
+
         JLabel jlabSeriesLab = new JLabel("Resistor Series : ");
-        this.add(jlabSeriesLab, c);
-        
-        
-        c.gridx = 3;
-        c.gridy = 6;
-        c.weightx = 0.5;
-        c.gridwidth = 1;
-        JPanel jpanE3 = new JPanel();
-        this.add(jpanE3, c);
+        jlabSeriesLab.setFont(fntBody);
+        jlabSeriesLab.setBounds(COL_POS_X4, ROW_POS_Y7, SIZE_STDLAB_X2, SIZE_STD_Y);
+        this.add(jlabSeriesLab);
+ 
+        /* Check boxes */
         
         jckbxE3 = new JCheckBox("E3");
         jckbxE3.setSelected(true);
-        jpanE3.add(jckbxE3);
-        
-        c.gridx = 4;
-        c.gridy = 6;
-        c.weightx = 0.5;
-        c.gridwidth = 1;
-        JPanel jpanE6 = new JPanel();
-        this.add(jpanE6, c);
-        
+        jckbxE3.setFont(fntBody);
+        jckbxE3.setBounds(COL_POS_X4, ROW_POS_Y8, SIZE_CBOX_X, SIZE_STD_Y);
+        this.add(jckbxE3);
+                
         jckbxE6 = new JCheckBox("E6");
         jckbxE6.setSelected(true);
-        jpanE6.add(jckbxE6);
-        
-        c.gridx = 5;
-        c.gridy = 6;
-        c.weightx = 0.5;
-        c.gridwidth = 1;
-        JPanel jpanE12 = new JPanel();
-        this.add(jpanE12, c);
+        jckbxE6.setFont(fntBody);
+        jckbxE6.setBounds(COL_POS_X7, ROW_POS_Y8, SIZE_CBOX_X, SIZE_STD_Y);
+        this.add(jckbxE6);
         
         jckbxE12 = new JCheckBox("E12");
         jckbxE12.setSelected(true);
-        jpanE12.add(jckbxE12);
+        jckbxE12.setFont(fntBody);
+        jckbxE12.setBounds(COL_POS_X8, ROW_POS_Y8, SIZE_CBOX_X, SIZE_STD_Y);
+        this.add(jckbxE12);
         
-        c.gridx = 3;
-        c.gridy = 7;
-        c.weightx = 0.5;
-        c.gridwidth = 1;
-        JPanel jpanE24 = new JPanel();
-        this.add(jpanE24, c);
+
         
         jckbxE24 = new JCheckBox("E24");
         jckbxE24.setSelected(true);
-        jpanE24.add(jckbxE24);
-        
-        c.gridx = 4;
-        c.gridy = 7;
-        c.weightx = 0.5;
-        c.gridwidth = 1;
-        JPanel jpanE48 = new JPanel();
-        this.add(jpanE48, c);
-        
+        jckbxE24.setFont(fntBody);
+        jckbxE24.setBounds(COL_POS_X9, ROW_POS_Y8, SIZE_CBOX_X, SIZE_STD_Y);
+        this.add(jckbxE24);
+
         // by default only E12 and E24 selected (most common)
         jckbxE48 = new JCheckBox("E48");
         jckbxE48.setSelected(false);
-        jpanE48.add(jckbxE48);
-        
-        c.gridx = 5;
-        c.gridy = 7;
-        c.weightx = 0.5;
-        c.gridwidth = 1;
-        JPanel jpanE96 = new JPanel();
-        this.add(jpanE96, c);
+        jckbxE48.setFont(fntBody);
+        jckbxE48.setBounds(COL_POS_X10, ROW_POS_Y8, SIZE_CBOX_X, SIZE_STD_Y);
+        this.add(jckbxE48);
         
         // by default only E12 and E24 selected (most common)
         jckbxE96 = new JCheckBox("E96");
         jckbxE96.setSelected(false);
-        jpanE96.add(jckbxE96);
+        jckbxE96.setFont(fntBody);
+        jckbxE96.setBounds(COL_POS_X11, ROW_POS_Y8, SIZE_CBOX_X, SIZE_STD_Y);
+        this.add(jckbxE96);
         
         /* Add action listeners for prefs*/
         jcombPref.addActionListener(aclstPrefResistor);
@@ -267,12 +272,8 @@ public class EtbResistor extends JPanel {
         jckbxE96.addActionListener(aclstPrefResistor);
         
         
-        c.gridx = 0;
-        c.gridy = 8;
-        c.weightx = 1.0;
-        c.gridwidth = 6;
         JPanel jpanSelectedResistor = new JPanel();
-        this.add(jpanSelectedResistor, c);
+        this.add(jpanSelectedResistor);
         
         JLabel jlabSelectResisLabel = new JLabel("Nearest resistor");
         jpanSelectedResistor.add(jlabSelectResisLabel);

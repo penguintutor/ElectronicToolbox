@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 
 public class EtbResistorImg extends JPanel {
 
+	private static final long serialVersionUID = 3586899645278866484L;
+
 	public void paintComponent(Graphics g) {
 		g.setColor(Color.orange);
 	    g.fillRect(0, 0, getWidth(), getHeight());
