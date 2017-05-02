@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Stewart Watkiss
+ * Copyright (C) 2016 - 2017 Stewart Watkiss
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,6 +16,7 @@
  */
 package electronictoolbox;
 
+import java.awt.Dimension;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -30,6 +31,7 @@ public class ElectronicToolbox {
         JFrame jfrm = new JFrame("Electronic Toolbox");
         // initial size
         jfrm.setSize(800, 600);
+        jfrm.setMinimumSize(new Dimension(500,400));
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Add Menu
         EtbMenuBar menu = new EtbMenuBar();

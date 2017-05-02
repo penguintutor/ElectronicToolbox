@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 Stewart Watkiss
+ * Copyright (C) 2016 - 2017 Stewart Watkiss
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,7 +50,9 @@ public class EtbResistor extends JPanel {
     double resistance;
     
     EtbResistor() {
-        
+    	
+    	
+
         this.setLayout(new GridBagLayout());
         
         GridBagConstraints c = new GridBagConstraints();
@@ -332,7 +334,7 @@ public class EtbResistor extends JPanel {
 
         
     }   
-    
+      
     
     // Only works with suitable values for resistor (ie. no milliohms)
     // Assumes we've already checked that it's a number - but check number is in range
@@ -340,9 +342,9 @@ public class EtbResistor extends JPanel {
         String approxValue;
         Character charSI = '\u0000';
         // First check it's a valid resistance - set highest = 999MΩ 
-        // technically posible to have higher, but not in normal electronics use
+        // technically possible to have higher, but not in normal electronics use
         if (actualValue > 999000000) return "Too high";
-        // Should not get < 0 as would be interpretted as invalid anyway
+        // Should not get < 0 as would be interpreted as invalid anyway
         if (actualValue < 0) return "Not allowed";
         // Now check for different values and apply SI unit
         if (actualValue >= 1000000) {
@@ -384,7 +386,7 @@ public class EtbResistor extends JPanel {
         String approxValue;
         Character charSI = '\u0000';
         // First check it's a valid set highest = 999M 
-        // technically posible to have higher, but not in normal electronics use
+        // technically possible to have higher, but not in normal electronics use
         if (actualValue > 999000000) return "Too high";
         // Should not get < 0 as would be interpretted as invalid anyway
         if (actualValue < 0) return "Not allowed";
