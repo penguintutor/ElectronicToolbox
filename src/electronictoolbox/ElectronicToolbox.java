@@ -31,7 +31,7 @@ public class ElectronicToolbox {
         JFrame jfrm = new JFrame("Electronic Toolbox");
         // initial size
         jfrm.setSize(800, 600);
-        jfrm.setMinimumSize(new Dimension(800,600));
+        jfrm.setMinimumSize(new Dimension(600,400));
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // Add Menu
         EtbMenuBar menu = new EtbMenuBar();

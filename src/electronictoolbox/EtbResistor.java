@@ -56,10 +56,12 @@ public class EtbResistor extends JPanel {
     final static int COL_LEFT = 0;						// Title + text
     final static int COL_LABEL_0 = 0;					// initial form fields (eg. Voltage:)
     final static int COL_FORM_0 = 1;					// initial form entry field (eg. textfield)
-    final static int COL_POST_0 = 2;					// post character (eg. V)
-    final static int COL_LABEL_1 = 4;					// form fields (eg. Resistance:)
-    final static int COL_FORM_1 = 5;					// form entry field (eg. textfield)
-    final static int COL_POST_1 = 6;					// post character (eg. ohms)
+    final static int COL_FORM_0A = 2;					// split in half to allow ohm of nearest to be closer
+    final static int COL_POST_0 = 3;					// post character (eg. V)
+    final static int COL_PAD_0 = 4;						// Padding between left and right
+    final static int COL_LABEL_1 = 5;					// form fields (eg. Resistance:)
+    final static int COL_FORM_1 = 6;					// form entry field (eg. textfield)
+    final static int COL_POST_1 = 7;					// post character (eg. ohms)
 
     
     /* ROW = y coords */
@@ -73,18 +75,6 @@ public class EtbResistor extends JPanel {
     final static int ROW_FORM_3 = 8;					// Series checkboxes
     final static int ROW_FORM_4 = 9;					// Nearest resistor
     
-    
-    // Some common fields have fixed sizes
- /*   final static int SIZE_CBOX_X = 50;					// Checkbox
-    final static int SIZE_STDLAB_X = 80;				// Eg. Voltage label
-    final static int SIZE_STDLAB_X1 = 90;				// Slightly larger eg. resistance
-    final static int SIZE_STDLAB_X2 = 130;				// Larger still eg. Resistor series
-    final static int SIZE_SMLENTRY_X = 60;				// Eg. volts
-    final static int SIZE_STDENTRY_X = 130;				// Eg. pull down - preference
-    final static int SIZE_SMLLAB_X = 30;				// Eg. short value non edit eg. Resistance
-    final static int SIZE_BTN_X = 120;
-    final static int SIZE_STD_Y = 30;					// Most fields incl labels and text fields
-    final static int SIZE_BTN_Y = 45;					// standard button size */
 
     
     EtbResistor() {
@@ -133,7 +123,7 @@ public class EtbResistor extends JPanel {
         jtxtVolts.setFont(fntBody);
         c.gridx = COL_FORM_0;
         c.gridy = ROW_FORM_0;
-        c.gridwidth = 1;
+        c.gridwidth = 2;
         this.add(jtxtVolts,c);
         
         JLabel jlabVolts = new JLabel(" Volts");
@@ -155,7 +145,7 @@ public class EtbResistor extends JPanel {
         jtxtAmps.setFont(fntBody);
         c.gridx = COL_FORM_0;
         c.gridy = ROW_FORM_1;
-        c.gridwidth = 1;
+        c.gridwidth = 2;
         this.add(jtxtAmps,c);
         
         JLabel jlabAmps = new JLabel(" Amps");
@@ -165,6 +155,15 @@ public class EtbResistor extends JPanel {
         c.gridwidth = 1;
         this.add(jlabAmps,c);
 
+        /* Add padding between left and right */
+        JLabel jlabPad = new JLabel("       ");
+        jlabPad.setFont(fntBody);
+        c.gridx = COL_PAD_0;
+        c.gridy = ROW_FORM_1;
+        c.gridwidth = 1;
+        this.add(jlabPad,c);
+        
+        
         /* Resistance and power - right hand side */
         /* Set to 0 initially refresh and update exact values later */
        
@@ -244,7 +243,7 @@ public class EtbResistor extends JPanel {
         jcombPref.setFont(fntBody);
         c.gridx = COL_FORM_0;
         c.gridy = ROW_FORM_2;
-        c.gridwidth = 2;
+        c.gridwidth = 3;
         jcombPref.addItem("Nearest");
         jcombPref.addItem("Lower value");
         jcombPref.addItem("Higher value");
@@ -324,7 +323,7 @@ public class EtbResistor extends JPanel {
 
         JLabel jlabOhm2 = new JLabel ("\u2126");
         jlabOhm2.setFont(fntBody);
-        c.gridx = COL_POST_0;
+        c.gridx = COL_FORM_0A;
         c.gridy = ROW_FORM_4;
         c.gridwidth = 1;
         this.add(jlabOhm2,c);
