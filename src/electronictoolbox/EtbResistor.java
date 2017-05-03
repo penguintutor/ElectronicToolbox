@@ -46,11 +46,14 @@ public class EtbResistor extends JPanel {
     JCheckBox jckbxE48;
     JCheckBox jckbxE96;
     
+    EtbResistorImg resistorImg;
+    
     // Resistance is recalculated whenever it needs to be updated
     // but is saved so that it can be read by preferred resistor methods
     double resistance;
     
-    /* These static variables are used to define the GUI positions based on fix layout */
+    /* These static variables are used to define the GUI positions based on gridbaglayout 
+     * This allows chnaging the positions here rather than on each component */
     /* Positions left to right / top to bottom*/
     /* COL = x coords */
     final static int COL_LEFT = 0;						// Title + text
@@ -66,6 +69,7 @@ public class EtbResistor extends JPanel {
     
     /* ROW = y coords */
     final static int ROW_TITLE = 0;						// Title
+    final static int ROW_IMG_0 = 1;						// Image of resistor
     final static int ROW_TEXT_0 = 2;					// First title
     final static int ROW_FORM_0 = 3;					// First form (eg. voltage)
     final static int ROW_FORM_1 = 4;					// Second form (eg. current)
@@ -87,25 +91,34 @@ public class EtbResistor extends JPanel {
         c.insets = new Insets(10, 10, 10, 10);
     	
     	
-        JLabel jlabResTitle = new JLabel("Resistor Calculator Tool");
+        JLabel jlabResTitle = new JLabel("Resistor Calculator Tool", SwingConstants.CENTER);
         jlabResTitle.setFont(jlabResTitle.getFont().deriveFont(18.0f));
-        c.gridx = 0;
+        c.gridx = COL_LEFT;
         c.gridy = ROW_TITLE; 
         c.gridwidth = 11;
+        c.fill=GridBagConstraints.BOTH;
+        c.anchor=GridBagConstraints.NORTH;
         this.add(jlabResTitle,c);
         
-        
+        c.fill=GridBagConstraints.NONE;
         
         
         /* Insert image of resistor */
+        resistorImg = new EtbResistorImg();
+        c.gridx = COL_LEFT;
+        c.gridy = ROW_IMG_0;
+        c.gridwidth = 11;
+        this.add(resistorImg,c);
         
+        
+        c.anchor=GridBagConstraints.WEST;
 
         JLabel jlabInstr = new JLabel("Add details of voltage and current for details of nearest resistor size.");
         // Make this into a font we can apply to other labels
         Font fntBody = jlabInstr.getFont().deriveFont(13.0f);
         jlabInstr.setFont(fntBody);
         c.gridx = COL_LEFT;
-        c.gridy = 2;
+        c.gridy = ROW_TEXT_0;
         c.gridwidth = 11;
         this.add(jlabInstr, c);
 
@@ -119,7 +132,7 @@ public class EtbResistor extends JPanel {
         this.add(jlabVoltage,c);
         
         
-        jtxtVolts = new JTextField(10);
+        jtxtVolts = new JTextField(5);
         jtxtVolts.setFont(fntBody);
         c.gridx = COL_FORM_0;
         c.gridy = ROW_FORM_0;
@@ -141,7 +154,7 @@ public class EtbResistor extends JPanel {
         c.gridwidth = 1;
         this.add(jlabCurrent,c);
         
-        jtxtAmps = new JTextField(10);
+        jtxtAmps = new JTextField(5);
         jtxtAmps.setFont(fntBody);
         c.gridx = COL_FORM_0;
         c.gridy = ROW_FORM_1;
