@@ -53,36 +53,29 @@ public class EtbResistor extends JPanel {
     /* These static variables are used to define the GUI positions based on fix layout */
     /* Positions left to right / top to bottom*/
     /* COL = x coords */
-    final static int COL_POS_XCENTRE0 = 300;			// Title
-    final static int COL_POS_X0 = 20;					// Text / instructions
-    final static int COL_POS_X1 = 40;					// First Label
-    final static int COL_POS_X2 = 130;					// First txt field
-    final static int COL_POS_X3 = 200;					// post field Label
-    final static int COL_POS_X3A = 240;					// (intermediate - eg. last omega)
-    final static int COL_POS_X4 = 400;					// Second Label
-    final static int COL_POS_X5 = 500;					// Second Value 
-    final static int COL_POS_X6 = 540;					// Second Label post (eg. omega - assuming X5 non-edit)
-    final static int COL_POS_X7 = 460;					// 2nd checkbox (note these are shifted back compared with X5 and X6)
-    final static int COL_POS_X8 = 520;					// 3rd checkbox
-    final static int COL_POS_X9 = 580;					// 4th checkbox
-    final static int COL_POS_X10 = 640;					// 5th checkbox
-    final static int COL_POS_X11 = 700;					// 6th checkbox
+    final static int COL_LEFT = 0;						// Title + text
+    final static int COL_LABEL_0 = 0;					// initial form fields (eg. Voltage:)
+    final static int COL_FORM_0 = 1;					// initial form entry field (eg. textfield)
+    final static int COL_POST_0 = 2;					// post character (eg. V)
+    final static int COL_LABEL_1 = 4;					// form fields (eg. Resistance:)
+    final static int COL_FORM_1 = 5;					// form entry field (eg. textfield)
+    final static int COL_POST_1 = 6;					// post character (eg. ohms)
+
     
     /* ROW = y coords */
-    final static int ROW_POS_Y0 = 20;					// Title
-    final static int ROW_POS_Y1 = 60;					// Image
-    final static int ROW_POS_Y2 = 160;					// Text
-    final static int ROW_POS_Y3 = 210;					// First entry fields eg. voltage	
-    final static int ROW_POS_Y4 = 250;					// Second entry fields eg. current	
-    final static int ROW_POS_Y5 = 290;					// Refresh button	
-    final static int ROW_POS_Y6 = 360;					// Second text
-    final static int ROW_POS_Y7 = 400;					// Resistor pref
-    final static int ROW_POS_Y8 = 440;					// Series checkboxes
-    final static int ROW_POS_Y9 = 480;					// Nearest resistor
+    final static int ROW_TITLE = 0;						// Title
+    final static int ROW_TEXT_0 = 2;					// First title
+    final static int ROW_FORM_0 = 3;					// First form (eg. voltage)
+    final static int ROW_FORM_1 = 4;					// Second form (eg. current)
+    final static int ROW_SUBMIT_0 = 5;					// Second form (eg. current)
+    final static int ROW_TEXT_1 = 6;					// First title
+    final static int ROW_FORM_2 = 7;					// Resistor pref
+    final static int ROW_FORM_3 = 8;					// Series checkboxes
+    final static int ROW_FORM_4 = 9;					// Nearest resistor
     
     
     // Some common fields have fixed sizes
-    final static int SIZE_CBOX_X = 50;					// Checkbox
+ /*   final static int SIZE_CBOX_X = 50;					// Checkbox
     final static int SIZE_STDLAB_X = 80;				// Eg. Voltage label
     final static int SIZE_STDLAB_X1 = 90;				// Slightly larger eg. resistance
     final static int SIZE_STDLAB_X2 = 130;				// Larger still eg. Resistor series
@@ -91,18 +84,28 @@ public class EtbResistor extends JPanel {
     final static int SIZE_SMLLAB_X = 30;				// Eg. short value non edit eg. Resistance
     final static int SIZE_BTN_X = 120;
     final static int SIZE_STD_Y = 30;					// Most fields incl labels and text fields
-    final static int SIZE_BTN_Y = 45;					// standard button size
+    final static int SIZE_BTN_Y = 45;					// standard button size */
 
     
     EtbResistor() {
     	
-    	this.setLayout(null);
-        //this.setBackground(Color.white);
+    	this.setLayout(new GridBagLayout());
+    	
+    	/* GridBagLayout constraints */
+    	GridBagConstraints c = new GridBagConstraints();
+    	c.anchor = GridBagConstraints.WEST;
+        c.insets = new Insets(10, 10, 10, 10);
+    	
     	
         JLabel jlabResTitle = new JLabel("Resistor Calculator Tool");
         jlabResTitle.setFont(jlabResTitle.getFont().deriveFont(18.0f));
-        jlabResTitle.setBounds(COL_POS_XCENTRE0,ROW_POS_Y0,300,35);
-        this.add(jlabResTitle);
+        c.gridx = 0;
+        c.gridy = ROW_TITLE; 
+        c.gridwidth = 11;
+        this.add(jlabResTitle,c);
+        
+        
+        
         
         /* Insert image of resistor */
         
@@ -111,76 +114,102 @@ public class EtbResistor extends JPanel {
         // Make this into a font we can apply to other labels
         Font fntBody = jlabInstr.getFont().deriveFont(13.0f);
         jlabInstr.setFont(fntBody);
-        jlabInstr.setBounds(COL_POS_X0,ROW_POS_Y2,600,25);
-        this.add(jlabInstr);
+        c.gridx = COL_LEFT;
+        c.gridy = 2;
+        c.gridwidth = 11;
+        this.add(jlabInstr, c);
 
         
         /* Voltage and Current input */
         JLabel jlabVoltage = new JLabel("Voltage : ");
         jlabVoltage.setFont(fntBody);
-        jlabVoltage.setBounds(COL_POS_X1, ROW_POS_Y3, SIZE_STDLAB_X, SIZE_STD_Y);
-        this.add(jlabVoltage);
+        c.gridx = COL_LABEL_0;
+        c.gridy = ROW_FORM_0;
+        c.gridwidth = 1;
+        this.add(jlabVoltage,c);
         
         
         jtxtVolts = new JTextField(10);
         jtxtVolts.setFont(fntBody);
-        jtxtVolts.setBounds(COL_POS_X2, ROW_POS_Y3, SIZE_SMLENTRY_X, SIZE_STD_Y);
-        this.add(jtxtVolts);
+        c.gridx = COL_FORM_0;
+        c.gridy = ROW_FORM_0;
+        c.gridwidth = 1;
+        this.add(jtxtVolts,c);
         
         JLabel jlabVolts = new JLabel(" Volts");
         jlabVolts.setFont(fntBody);
-        jlabVolts.setBounds(COL_POS_X3, ROW_POS_Y3, SIZE_STDLAB_X, SIZE_STD_Y);
-        this.add(jlabVolts);
+        c.gridx = COL_POST_0;
+        c.gridy = ROW_FORM_0;
+        c.gridwidth = 1;
+        this.add(jlabVolts,c);
         
         
         JLabel jlabCurrent = new JLabel("Current : ");
         jlabCurrent.setFont(fntBody);
-        jlabCurrent.setBounds(COL_POS_X1, ROW_POS_Y4, SIZE_STDLAB_X, SIZE_STD_Y);
-        this.add(jlabCurrent);
+        c.gridx = COL_LABEL_0;
+        c.gridy = ROW_FORM_1;
+        c.gridwidth = 1;
+        this.add(jlabCurrent,c);
         
         jtxtAmps = new JTextField(10);
         jtxtAmps.setFont(fntBody);
-        jtxtAmps.setBounds(COL_POS_X2, ROW_POS_Y4, SIZE_SMLENTRY_X, SIZE_STD_Y);
-        this.add(jtxtAmps);
+        c.gridx = COL_FORM_0;
+        c.gridy = ROW_FORM_1;
+        c.gridwidth = 1;
+        this.add(jtxtAmps,c);
         
         JLabel jlabAmps = new JLabel(" Amps");
         jlabAmps.setFont(fntBody);
-        jlabAmps.setBounds(COL_POS_X3, ROW_POS_Y4, SIZE_STDLAB_X, SIZE_STD_Y);
-        this.add(jlabAmps);
+        c.gridx = COL_POST_0;
+        c.gridy = ROW_FORM_1;
+        c.gridwidth = 1;
+        this.add(jlabAmps,c);
 
         /* Resistance and power - right hand side */
         /* Set to 0 initially refresh and update exact values later */
        
         JLabel jlabResistance = new JLabel ("Resistance : ");
         jlabResistance.setFont(fntBody);
-        jlabResistance.setBounds(COL_POS_X4, ROW_POS_Y3, SIZE_STDLAB_X1, SIZE_STD_Y);
-        this.add(jlabResistance);
+        c.gridx = COL_LABEL_1;
+        c.gridy = ROW_FORM_0;
+        c.gridwidth = 1;
+        this.add(jlabResistance,c);
         
-        jlabResistorVal = new JLabel ("9999", SwingConstants.RIGHT);
+        jlabResistorVal = new JLabel ("0", SwingConstants.RIGHT);
         jlabResistorVal.setFont(fntBody);
-        jlabResistorVal.setBounds(COL_POS_X5, ROW_POS_Y3, SIZE_SMLLAB_X, SIZE_STD_Y);
-        this.add(jlabResistorVal);
+        c.gridx = COL_FORM_1;
+        c.gridy = ROW_FORM_0;
+        c.gridwidth = 1;
+        this.add(jlabResistorVal,c);
         
         JLabel jlabOhm = new JLabel ("\u2126");
         jlabOhm.setFont(fntBody);
-        jlabOhm.setBounds(COL_POS_X6, ROW_POS_Y3, SIZE_SMLLAB_X, SIZE_STD_Y);
-        this.add(jlabOhm);
+        c.gridx = COL_POST_1;
+        c.gridy = ROW_FORM_0;
+        c.gridwidth = 1;
+        this.add(jlabOhm,c);
         
         
         JLabel jlabPower = new JLabel ("Power : ");
         jlabPower.setFont(fntBody);
-        jlabPower.setBounds(COL_POS_X4, ROW_POS_Y4, SIZE_STDLAB_X1, SIZE_STD_Y);
-        this.add(jlabPower);
+        c.gridx = COL_LABEL_1;
+        c.gridy = ROW_FORM_1;
+        c.gridwidth = 1;
+        this.add(jlabPower,c);
         
         jlabPowerVal = new JLabel ("0", SwingConstants.RIGHT);
         jlabPowerVal.setFont(fntBody);
-        jlabPowerVal.setBounds(COL_POS_X5, ROW_POS_Y4, SIZE_SMLLAB_X, SIZE_STD_Y);
-        this.add(jlabPowerVal);
+        c.gridx = COL_FORM_1;
+        c.gridy = ROW_FORM_1;
+        c.gridwidth = 1;
+        this.add(jlabPowerVal,c);
         
         JLabel jlabWatts = new JLabel ("W");
         jlabWatts.setFont(fntBody);
-        jlabWatts.setBounds(COL_POS_X6, ROW_POS_Y4, SIZE_SMLLAB_X, SIZE_STD_Y);
-        this.add(jlabWatts);
+        c.gridx = COL_POST_1;
+        c.gridy = ROW_FORM_1;
+        c.gridwidth = 1;
+        this.add(jlabWatts,c);
         
         
         /* Refresh button */
@@ -189,80 +218,85 @@ public class EtbResistor extends JPanel {
             updateResistance();
         });
         jbtnRefresh.setFont(fntBody);
-        jbtnRefresh.setBounds(COL_POS_X4, ROW_POS_Y5, SIZE_BTN_X, SIZE_BTN_Y);
-        this.add(jbtnRefresh);
+        c.gridx = COL_LABEL_1;		// Line up against left of right fields
+        c.gridy = ROW_SUBMIT_0;
+        c.gridwidth = 3;
+        this.add(jbtnRefresh,c);
         
 
         JLabel jlabSeriesInstr = new JLabel("Select resistor series and whether minimum, maximum or nearest");
         jlabInstr.setFont(fntBody);
-        jlabInstr.setBounds(COL_POS_X0,ROW_POS_Y6,600,25);
-        this.add(jlabSeriesInstr);
+        c.gridx = COL_LEFT;
+        c.gridy = ROW_TEXT_1;
+        c.gridwidth = 11;
+        this.add(jlabSeriesInstr,c);
         
-
-        JPanel jpanPref = new JPanel();
-        this.add(jpanPref);
-        
+      
         JLabel jlabSeries = new JLabel("Preference : ");
         jlabSeries.setFont(fntBody);
-        jlabSeries.setBounds(COL_POS_X1, ROW_POS_Y7, SIZE_STDLAB_X1, SIZE_STD_Y);
-        this.add(jlabSeries);
+        c.gridx = COL_LABEL_0;
+        c.gridy = ROW_FORM_2;
+        c.gridwidth = 1;
+        this.add(jlabSeries,c);
         
 
         jcombPref = new JComboBox<String>();
         jcombPref.setFont(fntBody);
-        jcombPref.setBounds(COL_POS_X2, ROW_POS_Y7, SIZE_STDENTRY_X, SIZE_STD_Y);
+        c.gridx = COL_FORM_0;
+        c.gridy = ROW_FORM_2;
+        c.gridwidth = 2;
         jcombPref.addItem("Nearest");
         jcombPref.addItem("Lower value");
         jcombPref.addItem("Higher value");
-        this.add(jcombPref);
+        this.add(jcombPref,c);
         
 
         JLabel jlabSeriesLab = new JLabel("Resistor Series : ");
         jlabSeriesLab.setFont(fntBody);
-        jlabSeriesLab.setBounds(COL_POS_X4, ROW_POS_Y7, SIZE_STDLAB_X2, SIZE_STD_Y);
-        this.add(jlabSeriesLab);
+        c.gridx = COL_LABEL_1;
+        c.gridy = ROW_FORM_2;
+        c.gridwidth = 1;
+        this.add(jlabSeriesLab,c);
  
         /* Check boxes */
+        // uses it's own Jpanel to maintain consistant spacing
+        JPanel jpnlSeries = new JPanel();
+        c.gridx = COL_LABEL_1;
+        c.gridy = ROW_FORM_3;
+        c.gridwidth = 4;
+        this.add(jpnlSeries,c);
         
         jckbxE3 = new JCheckBox("E3");
         jckbxE3.setSelected(true);
         jckbxE3.setFont(fntBody);
-        jckbxE3.setBounds(COL_POS_X4, ROW_POS_Y8, SIZE_CBOX_X, SIZE_STD_Y);
-        this.add(jckbxE3);
+        jpnlSeries.add(jckbxE3);
                 
         jckbxE6 = new JCheckBox("E6");
         jckbxE6.setSelected(true);
         jckbxE6.setFont(fntBody);
-        jckbxE6.setBounds(COL_POS_X7, ROW_POS_Y8, SIZE_CBOX_X, SIZE_STD_Y);
-        this.add(jckbxE6);
+        jpnlSeries.add(jckbxE6);
         
         jckbxE12 = new JCheckBox("E12");
         jckbxE12.setSelected(true);
         jckbxE12.setFont(fntBody);
-        jckbxE12.setBounds(COL_POS_X8, ROW_POS_Y8, SIZE_CBOX_X, SIZE_STD_Y);
-        this.add(jckbxE12);
-        
-
+        jpnlSeries.add(jckbxE12);
         
         jckbxE24 = new JCheckBox("E24");
         jckbxE24.setSelected(true);
         jckbxE24.setFont(fntBody);
-        jckbxE24.setBounds(COL_POS_X9, ROW_POS_Y8, SIZE_CBOX_X, SIZE_STD_Y);
-        this.add(jckbxE24);
+        jpnlSeries.add(jckbxE24);
 
         // by default only E12 and E24 selected (most common)
         jckbxE48 = new JCheckBox("E48");
         jckbxE48.setSelected(false);
         jckbxE48.setFont(fntBody);
-        jckbxE48.setBounds(COL_POS_X10, ROW_POS_Y8, SIZE_CBOX_X, SIZE_STD_Y);
-        this.add(jckbxE48);
+        jpnlSeries.add(jckbxE48);
         
         // by default only E12 and E24 selected (most common)
         jckbxE96 = new JCheckBox("E96");
         jckbxE96.setSelected(false);
         jckbxE96.setFont(fntBody);
-        jckbxE96.setBounds(COL_POS_X11, ROW_POS_Y8, SIZE_CBOX_X, SIZE_STD_Y);
-        this.add(jckbxE96);
+        jpnlSeries.add(jckbxE96);
         
         /* Add action listeners for prefs*/
         jcombPref.addActionListener(aclstPrefResistor);
@@ -276,18 +310,24 @@ public class EtbResistor extends JPanel {
         
         JLabel jlabSelectResisLabel = new JLabel("Nearest resistor");
         jlabSelectResisLabel.setFont(fntBody);
-        jlabSelectResisLabel.setBounds(COL_POS_X1, ROW_POS_Y9, SIZE_STDLAB_X2, SIZE_STD_Y);
-        this.add(jlabSelectResisLabel);
+        c.gridx = COL_LABEL_0;
+        c.gridy = ROW_FORM_4;
+        c.gridwidth = 1;
+        this.add(jlabSelectResisLabel,c);
         
         jlabSelectResisValue = new JLabel("0");
         jlabSelectResisValue.setFont(fntBody);
-        jlabSelectResisValue.setBounds(COL_POS_X3, ROW_POS_Y9, SIZE_STDLAB_X, SIZE_STD_Y);
-        this.add(jlabSelectResisValue);
+        c.gridx = COL_FORM_0;
+        c.gridy = ROW_FORM_4;
+        c.gridwidth = 1;
+        this.add(jlabSelectResisValue,c);
 
         JLabel jlabOhm2 = new JLabel ("\u2126");
         jlabOhm2.setFont(fntBody);
-        jlabOhm2.setBounds(COL_POS_X3A, ROW_POS_Y9, SIZE_SMLLAB_X, SIZE_STD_Y);
-        this.add(jlabOhm2);
+        c.gridx = COL_POST_0;
+        c.gridy = ROW_FORM_4;
+        c.gridwidth = 1;
+        this.add(jlabOhm2,c);
     }
     
     
