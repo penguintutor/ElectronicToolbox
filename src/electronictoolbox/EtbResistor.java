@@ -19,6 +19,7 @@ package electronictoolbox;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
+import java.util.LinkedList;
 
 import javax.swing.*;
 
@@ -385,6 +386,7 @@ public class EtbResistor extends JPanel {
             // Do same for power
             jlabPowerVal.setText(formatSI(power));
             
+
         }
         else {
             jlabResistorVal.setText("Invalid input");
@@ -449,7 +451,7 @@ public class EtbResistor extends JPanel {
         // First check it's a valid set highest = 999M 
         // technically possible to have higher, but not in normal electronics use
         if (actualValue > 999000000) return "Too high";
-        // Should not get < 0 as would be interpretted as invalid anyway
+        // Should not get < 0 as would be interpreted as invalid anyway
         if (actualValue < 0) return "Not allowed";
         // Now check for different values and apply SI unit
         if (actualValue >= 1000000) {
@@ -485,13 +487,54 @@ public class EtbResistor extends JPanel {
         if (charSI != '\u0000') {
             return (approxValue + ' ' + charSI);
         }
-        // Still put a space if no char to pad to Ω
+        // Still put a space if no char to pad 
         return approxValue + ' ';
     }
     
+    // Convert resistance value to band values (digit1, digit2, multiplier)
+    // Does not support fractional resistances (eg. 1.3 ohm, would be considered as 1 ohm)
+    // needs values as a long rather than a double (ie. for nearest resistor value)
+    public int[] resistanceToBands (long resistance) {
+    	System.out.println("Resistance " + String.valueOf(resistance));
+    	int[] bandValues = new int[3];
+    	// resistance invalid
+    	if (resistance < 1) return (new int[]{-5,-5,-5});
+
+    	// Convert the number into a array of digits by pushing 1 digit at time onto stack
+    	LinkedList<Integer> stack = new LinkedList<Integer>();
+    	while (resistance > 0) {
+    	    stack.push((int)(resistance % 10));
+    	    System.out.println("Adding to stack " + (int)(resistance % 10));
+    	    resistance = resistance / 10;
+    	}
+    	
+    	// If we have less than 2 digits then have 10^-1 multiplier  = gold
+    	if (stack.size() == 1) {
+    		bandValues[0]=stack.pop();
+    		bandValues[1]=0;
+    		bandValues[2]=-1;
+    	}
+    	// Otherwise return the last two digits on the stack and the size of the stack is the multiplier
+    	else {
+    		bandValues[2] = stack.size()-2;
+    		bandValues[0] = stack.pop();
+    		bandValues[1] = stack.pop();
+    		
+    	}
+    	
+    	
+    	System.out.println("Values " + String.valueOf(bandValues[0]) + " " + String.valueOf(bandValues[1]) + " " + String.valueOf(bandValues[2]));
+    	return bandValues;
+    }
+    
+    
+    /* Updates the nearest resistor value */
     void updateSelectedResistor() {
         
         jlabSelectResisValue.setText(formatResistance(resistance));
+        
+        
+        resistorImg.updateBands(resistanceToBands((long)resistance));
         
     }
     
